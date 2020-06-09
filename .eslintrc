@@ -1,0 +1,26 @@
+{
+  "parser": "babel-eslint",
+  "root": true,
+  "extends": ["@hh.ru/eslint-config", "prettier", "prettier/standard"],
+  "plugins": ["prettier"],
+  "rules": {
+    "arrow-parens": ["error", "always"],
+    "no-console": 0,
+    "prettier/prettier": ["error"],
+    "no-unused-vars": [
+      "error",
+      {
+        "ignoreRestSiblings": true
+      }
+    ],
+    "func-names": 0,
+    "no-undef": 0
+  },
+  "parserOptions": {
+    "ecmaVersion": 7,
+    "sourceType": "module",
+    "ecmaFeatures": {
+      "experimentalObjectRestSpread": true
+    }
+  }
+}

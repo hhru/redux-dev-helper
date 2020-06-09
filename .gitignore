@@ -1,0 +1,29 @@
+dist
+.cache
+.vscode
+.idea
+.settings
+*.pyc
+*.mustache.js
+.project
+.pydevproject
+*.iml
+*.ipr
+*.iws
+.sublime*
+.remote-sync.*
+npm-debug.log
+yarn-error.log
+*~
+# OS X junk
+.AppleDouble
+.DS_Store
+Icon?
+.Spotlight-V100
+.Trashes
+
+# Windows junk
+ehthumbs.db
+Thumbs.db
+Desktop.ini
+node_modules
