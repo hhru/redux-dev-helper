@@ -1,6 +1,6 @@
 ## Утилита для трека состояния стора
 
-В режиме разработки в глобальной области видимости доступен объект `store`
+Добавляет объект `store` в глобальной области видимости
 
 С его помощью можно получить состояние стора и подписаться на стор. Подписка на стор сохраняется для домена (ls).
 
@@ -42,7 +42,7 @@ storeDevToolInit(storeInstance);
 
 ```js
 if (process.env.NODE_ENV === 'development') {
-  import('lux/modules/storeDevTool').then(({ default: storeDevToolInit }) =>
+  import('@hh.ru/redux-dev-helper').then(({ default: storeDevToolInit }) =>
     storeDevToolInit(storeInstance)
   );
 }
