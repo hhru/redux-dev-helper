@@ -1,6 +1,6 @@
 {
   "name": "@hh.ru/redux-dev-helper",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Redux tool which provides a global variable store. Can filter empty fields and subscribe to changes",
   "main": "dist/index.js",
   "private": false,
