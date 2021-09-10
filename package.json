@@ -8,7 +8,8 @@
     "eslint-test": "eslint './*.js'",
     "clean": "rm -rf dist",
     "build": "babel src -d dist",
-    "prepublish": "yarn clean && yarn build"
+    "prepublish": "yarn clean && yarn build",
+    "release": "npm publish --access=public"
   },
   "repository": {
     "type": "git",
