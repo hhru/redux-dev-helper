@@ -1,31 +1,38 @@
-export default function storeDevToolInit(storeInstance) {
+const isEqual = (a, b) => {
+  if (typeof a !== 'object' || typeof b !== 'object' || a === null || b === null) {
+      return a === b;
+  }
+
+  if (Object.keys(a).length !== Object.keys(b).length) {
+      return false;
+  }
+
+  return JSON.stringify(a) === JSON.stringify(b);
+};
+
+export default function storeDevToolInit(storeInstance, storeInitialState = {}) {
   let cache = {};
   let unsubscribe;
 
-  window.store = function (mask = '', includeEmpty = false) {
+  window.store = function (mask = '', includeUnchangedFields = true) {
     const search = mask.toLowerCase();
     const fields = Object.entries(storeInstance.getState()).filter(([key]) =>
       key.toLowerCase().includes(search)
     );
 
-    if (includeEmpty) {
+    if (includeUnchangedFields) {
       return Object.fromEntries(fields);
     }
 
     return Object.fromEntries(
       fields
-        .filter(([, value]) => Boolean(value))
-        .filter(([, value]) => !Array.isArray(value) || value.length > 0)
-        .filter(
-          ([, value]) =>
-            !typeof value === 'object' || Object.keys(value).length > 0
-        )
+        .filter(([key, value]) => !isEqual(storeInitialState[key], value))
     );
   };
 
-  window.store.subscribe = function (mask = '', includeEmpty = false) {
+  window.store.subscribe = function (mask = '', includeUnchangedFields = true) {
     function compare() {
-      const state = window.store(mask, includeEmpty);
+      const state = window.store(mask, includeUnchangedFields);
 
       const result = Object.fromEntries(
         Object.entries(state).filter(([key, value]) => value !== cache[key])
@@ -43,7 +50,7 @@ export default function storeDevToolInit(storeInstance) {
     compare();
     window.localStorage.setItem(
       'DEV_STORE_SUBSCRIBE',
-      JSON.stringify({ mask, includeEmpty })
+      JSON.stringify({ mask, includeUnchangedFields })
     );
   };
 
@@ -56,7 +63,7 @@ export default function storeDevToolInit(storeInstance) {
 
   const toSubscribe = window.localStorage.getItem('DEV_STORE_SUBSCRIBE');
   if (toSubscribe) {
-    const { mask, includeEmpty } = JSON.parse(toSubscribe);
-    window.store.subscribe(mask, includeEmpty);
+    const { mask, includeUnchangedFields } = JSON.parse(toSubscribe);
+    window.store.subscribe(mask, includeUnchangedFields);
   }
 }

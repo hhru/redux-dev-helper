@@ -6,11 +6,11 @@
 
 ### Возможности
 
-1. Получить состояние стора: `store()`. По умолчанию, функция опустит все пустые поля (`null`, `[]`, `{}`).
+1. Получить состояние стора: `store()`. По умолчанию, функция выводит все поля стора.
 
-2. Зафильтровать поля стора: `store(substring)`. substring. Функция выведет все поля стора, где фигурирует подстрока. Метод фильтрации не чувствителен к регистру. По умолчанию, функция опустит все пустые поля.
+2. Зафильтровать поля стора: `store(substring)`. substring. Функция выведет все поля стора, где фигурирует подстрока. Метод фильтрации не чувствителен к регистру.
 
-3. Вывести все поля, включая пустые. `store(substring, true)`
+3. Вывести все изменившиеся после инициализации поля, включая пустые. `store(substring, false)`
 
 ### Подписки
 
@@ -24,7 +24,7 @@
 
 1. Подписка на весь стор: `store.subscribe()`.
 2. Подписка по подстроке названия поля: `store.subscribe(substring)`.
-3. Выводить даже пустые поля: `store.subscribe(substring, true)`.
+3. Выводить только поля, изменившиеся после инициализации: `store.subscribe(substring, false)`.
 
 ### Как использовать:
 
@@ -33,7 +33,7 @@
 ```js
 import storeDevToolInit from '@hh.ru/redux-dev-helper';
 
-storeDevToolInit(storeInstance);
+storeDevToolInit(storeInstance, storeInitialState);
 ```
 
 После этого у вас будет доступна глобальная переменная store.
@@ -43,7 +43,7 @@ storeDevToolInit(storeInstance);
 ```js
 if (process.env.NODE_ENV === 'development') {
   import('@hh.ru/redux-dev-helper').then(({ default: storeDevToolInit }) =>
-    storeDevToolInit(storeInstance)
+    storeDevToolInit(storeInstance, storeInitialState)
   );
 }
 ```
